@@ -4,7 +4,7 @@ function Header({ scrollToSection, sections }) {
   const { homeRef, aboutRef, projectsRef, contactRef } = sections;
 
   return (
-    <header className="bg-gray-800 text-white sticky top-0 z-50">
+    <header className=" text-white sticky top-0 z-50 bg-black">
       <div className="container mx-auto flex justify-between items-center p-4">
         <div className="flex items-center">
           <img
