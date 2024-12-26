@@ -11,6 +11,14 @@ function About() {
         I can work collaboratively with teams and clients to develop effecient and user friendly solutions.
         </p>
       </div>
+      <div className="container mx-auto">
+          <h3 className="text-2xl font-semibold">Fun Facts</h3>
+          <ul className="mt-4 list-disc list-inside space-y-2">
+            <li>I love hiking.</li>
+            <li>I'm a coffee enthusiast.</li>
+            <li>I enjoy solving puzzles.</li>
+          </ul>
+        </div>
     </section>
   );
 }

@@ -1,40 +1,35 @@
-import React from 'react';
-
 function Contact() {
   return (
-    <section className="min-h-screen py-20">
-      <div className="container mx-auto">
-        <h2 className="text-3xl font-bold mb-4">Contact Me</h2>
-        <form className="space-y-4">
-          <input
-            type="text"
-            placeholder="Your Name"
-            required
-            className="w-half p-2 border rounded"
-          />
-          <br></br>
-          <input
-            type="email"
-            placeholder="Your Email"
-            required
-            className="w-half p-2 border rounded"
-          />
-          <br></br>
-          <textarea
-            placeholder="Your Message"
-            required
-            className="w-half p-2 border rounded"
-            rows="4"
-          ></textarea>
-          <br></br>
-          <button
-            type="submit"
-            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-          >
-            Send
-          </button>
-        </form>
-      </div>
+    <section
+      id="contact"
+      className="min-h-screen flex flex-col justify-center text-white p-8"
+    >
+      <h2 className="text-4xl font-bold mb-6">Contact Me</h2>
+      <p className="text-lg mb-6">
+        Feel free to reach out to me for any opportunities or collaborations.
+      </p>
+      <form className="space-y-4 w-80">
+        <input
+          type="text"
+          placeholder="Your Name"
+          className="block w-full p-2 rounded bg-white text-blue-900"
+        />
+        <input
+          type="text"
+          placeholder="Your Email"
+          className="block w-full p-2 rounded bg-white text-blue-900"
+        />
+        <textarea
+          placeholder="Your Message"
+          className="block w-full p-2 rounded bg-white text-blue-900"
+        ></textarea>
+        <button
+          type="submit"
+          className="w-full px-6 py-3 bg-blue-500 text-white rounded hover:bg-blue-950"
+        >
+          Send
+        </button>
+      </form>
     </section>
   );
 }
