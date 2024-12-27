@@ -4,7 +4,8 @@
 
 body {
   font-family: 'Times New Roman', sans-serif;
-  @apply bg-gradient-to-r from-blue-950 via-blue-900 to-blue-950 text-white;
+  /*@apply bg-gradient-to-r from-blue-950 via-blue-900 to-blue-950 text-white;*/
+  background-color: #160a1a;
   margin: 0;
   overflow-x: hidden;
   scroll-behavior: smooth;

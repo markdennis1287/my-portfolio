@@ -1,10 +1,10 @@
 import React from 'react';
 
 function Header({ scrollToSection, sections }) {
-  const { homeRef, aboutRef, projectsRef, contactRef } = sections;
+  const { aboutRef, projectsRef, contactRef } = sections;
 
   return (
-    <header className=" text-white sticky top-0 z-50 bg-gradient-to-r from-blue-950 via-blue-900 to-blue-950">
+    <header className=" text-white sticky top-0 z-50 bg-[#160a1a]">
       <div className="container mx-auto flex justify-between items-center p-4">
         <div className="flex items-center space-x-4">
           <img
@@ -18,11 +18,6 @@ function Header({ scrollToSection, sections }) {
         </div>
         <nav>
           <ul className="flex space-x-4">
-            <li>
-              <button onClick={() => scrollToSection(homeRef)} className="hover:underline">
-                Home
-              </button>
-            </li>
             <li>
               <button onClick={() => scrollToSection(aboutRef)} className="hover:underline">
                 About
