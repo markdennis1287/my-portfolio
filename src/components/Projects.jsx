@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 function Projects() {
   const projects = [
@@ -23,20 +23,57 @@ function Projects() {
     },
   ];
 
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) setIsVisible(true);
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      if (sectionRef.current) observer.unobserve(sectionRef.current);
+    };
+  }, []);
+
   return (
-    <section className="min-h-90 py-20">
+    <section
+      ref={sectionRef}
+      className="min-h-90 py-20"
+    >
       <div className="container mx-auto">
-        <h2 className="text-5xl font-bold text-white mb-6 text-center">My Projects</h2>
-        <div className="md:w-1/2 px-4">
-        <p className="text-white text-xl text-left max-w-full mx-auto mb-12">
-          Below is a collection of projects that highlight my skills and experience in web development, data analysis, and building user-friendly applications. These projects are built using modern technologies and showcase my ability to solve real-world problems effectively.
+        <h2
+          className={`text-5xl font-bold text-white mb-6 text-center transition-transform duration-[3000ms] ease-out ${
+            isVisible ? 'translate-x-0' : '-translate-x-10'
+          }`}
+        >
+          My Projects
+        </h2>
+        <p
+          className={`text-xl text-left text-white mb-10 max-w-2xl transition-transform duration-[3000ms] ease-out ${
+            isVisible ? 'translate-y-0' : '-translate-y-10'
+          }`}
+        >
+          Below is a selection of my projects that demonstrate my skills and experiences in software development. 
+          These projects reflect my ability to solve real-world problems, build responsive user interfaces, 
+          and work with modern technologies to create meaningful applications.
         </p>
-      </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 border-cyan-50">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {projects.map((project, index) => (
             <div
               key={index}
-              className="bg-[#130936] rounded-lg shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300"
+              className={`bg-[#130936] rounded-lg shadow-lg overflow-hidden hover:shadow-2xl transition-transform duration-[3000ms] ease-out delay-${
+                isVisible ? index * 300 : 0
+              } ${
+                isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'
+              }`}
             >
               {project.image && (
                 <div className="overflow-hidden rounded-lg p-1">
@@ -54,7 +91,7 @@ function Projects() {
                   href={project.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-blue-300 hover:text-blue-50 font-semibold underline rounded-lg"
+                  className="text-blue-300 hover:text-blue-50 font-semibold underline"
                 >
                   View Project
                 </a>

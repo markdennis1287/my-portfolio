@@ -1,8 +1,28 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import emailjs from 'emailjs-com';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Contact() {
   const formRef = useRef();
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const contactSection = document.getElementById('contact');
+      if (contactSection) {
+        const rect = contactSection.getBoundingClientRect();
+        if (rect.top <= window.innerHeight && rect.bottom >= 0) {
+          setIsVisible(true);
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const sendEmail = (e) => {
     e.preventDefault();
@@ -16,11 +36,27 @@ function Contact() {
       .then(
         (result) => {
           console.log(result.text);
-          alert('Message sent successfully!');
+          toast.success('Message sent successfully!', {
+            position: 'top-right',
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
         },
         (error) => {
           console.log(error.text);
-          alert('Failed to send the message. Please try again.');
+          toast.error('Failed to send the message. Please try again.', {
+            position: 'top-right',
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
         }
       );
     e.target.reset();
@@ -29,15 +65,24 @@ function Contact() {
   return (
     <section
       id="contact"
-      className="min-h-screen flex flex-col justify-left text-white p-8"
+      className={`min-h-screen flex flex-col px-8 justify-left text-white p-8 transition-opacity duration-[1500ms] ease-out ${
+        isVisible ? 'opacity-100' : 'opacity-0'
+      }`}
     >
-      <div className="w-full md:w-1/2 mx-left bg-[#130936] p-8 rounded-lg shadow-lg">
+      <ToastContainer />
+      <div
+        className={`w-full md:w-1/2 mx-left bg-[#130936] p-8 rounded-lg shadow-lg transition-transform duration-[1500ms] ease-out ${
+          isVisible ? 'translate-x-0' : '-translate-x-10'
+        }`}
+      >
         <h2 className="text-5xl font-bold font-papyrus mb-6">Contact.</h2>
         <p className="text-lg mb-6">GET IN TOUCH</p>
         <form
           ref={formRef}
           onSubmit={sendEmail}
-          className="space-y-4 w-full"
+          className={`space-y-4 w-full transition-opacity duration-[2000ms] ease-out ${
+            isVisible ? 'opacity-100' : 'opacity-0'
+          }`}
         >
           <label className="flex flex-col">
             Your Name
@@ -71,7 +116,7 @@ function Contact() {
           </label>
           <button
             type="submit"
-            className="w-60 py-3 bg-blue-950 text-white rounded hover:bg-blue-900"
+            className="w-60 py-3 bg-blue-950 text-white rounded hover:bg-blue-900 transition-transform duration-200 hover:scale-105"
           >
             Send
           </button>

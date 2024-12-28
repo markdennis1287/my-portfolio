@@ -19,17 +19,17 @@ function Header({ scrollToSection, sections }) {
         <nav>
           <ul className="flex space-x-4">
             <li>
-              <button onClick={() => scrollToSection(aboutRef)} className="hover:underline">
+              <button onClick={() => scrollToSection(aboutRef)} className="hover:text-[#4b9fee]">
                 About
               </button>
             </li>
             <li>
-              <button onClick={() => scrollToSection(projectsRef)} className="hover:underline">
+              <button onClick={() => scrollToSection(projectsRef)} className="hover:text-[#4b9fee]">
                 Projects
               </button>
             </li>
             <li>
-              <button onClick={() => scrollToSection(contactRef)} className="hover:underline">
+              <button onClick={() => scrollToSection(contactRef)} className="hover:text-[#4b9fee]">
                 Contact
               </button>
             </li>
