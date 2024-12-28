@@ -8,7 +8,7 @@ function Header({ scrollToSection, sections }) {
       <div className="container mx-auto flex justify-between items-center p-4">
         <div className="flex items-center space-x-4">
           <img
-            src="/logo.svg"
+            src="/dm-high-resolution-logo.png"
             alt="Logo"
             className="w-12 h-12 rounded-full border-2 border-black"
           />
