@@ -51,21 +51,22 @@ This is a responsive portfolio website built with **React.js**, designed to show
 
 3. **Set up environment variables**:
     Create a .env file in the root directory and add the following:
-
+    ```bash
     VITE_EMAILJS_SERVICE_ID=your_service_id
     VITE_EMAILJS_TEMPLATE_ID=your_template_id
     VITE_EMAILJS_USER_ID=your_user_id
 
 4. **Run the application**:
+    ```bash
     npm run dev
 
 5. **Build for production**:
+    ```bash
     npm run build
 
 ---
 
 ## Usage
-
     Open the app in your browser at http://localhost:5173 after running the development server.
     Navigate through the sections using the navbar or hamburger menu (on small screens).
     Use the contact form to send a message.
@@ -73,19 +74,16 @@ This is a responsive portfolio website built with **React.js**, designed to show
 ---
 
 ## Contributing
-
     Contributions are welcome! If you'd like to add features, improve on the project or fix bugs.
 
 ---
 
 ## License
-
     This project is licensed under the MIT License. See the LICENSE file for more details.
 
 ---
 
 ## Author
-
     Dennis Miring'u
 
     GitHub: https://github.com/markdennis1287
