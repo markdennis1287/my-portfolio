@@ -61,7 +61,7 @@ function Projects() {
             isVisible ? 'translate-y-0' : '-translate-y-10'
           }`}
         >
-          Below is a selection of my projects that demonstrate my skills and experiences in software development. 
+          Below is a selection of projects that demonstrate my skills and experiences in software development. 
           These projects reflect my ability to solve real-world problems, build responsive user interfaces, 
           and work with modern technologies to create meaningful applications.
         </p>
