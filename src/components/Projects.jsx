@@ -91,9 +91,14 @@ function Projects() {
                   href={project.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-blue-300 hover:text-blue-50 font-semibold underline"
+                  className="text-blue-50 hover:text-blue-300 font-semibold flex items-center space-x-2"
                 >
-                  View Project
+                  <img
+                    src="/github-logo-6532.svg"
+                    alt="GitHub"
+                    className="w-7 h-7"
+                  />
+                  <span>View Project</span>
                 </a>
               </div>
             </div>
