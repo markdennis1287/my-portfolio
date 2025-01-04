@@ -68,7 +68,7 @@ function About() {
       >
         <div className="md:w-1/2 px-4">
           <h2 className="text-5xl font-bold mb-4">About Me</h2>
-          <p className="text-xl mb-6">
+          <p className="text-2xl mb-6">
             I’m Dennis Miring'u, a passionate software developer specializing in modern web technologies like Python and C++ as well as Web application frameworks such as Flask and React.
             I enjoy solving problems, creating CRUD applications, and delivering impactful user experiences. I aim to
             contribute to meaningful projects and grow my expertise with every opportunity.

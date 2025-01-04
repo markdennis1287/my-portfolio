@@ -57,7 +57,7 @@ function Projects() {
           My Projects
         </h2>
         <p
-          className={`text-xl text-left text-white mb-10 max-w-2xl transition-transform duration-[3000ms] ease-out ${
+          className={`text-2xl text-left text-white mb-10 max-w-2xl transition-transform duration-[3000ms] ease-out ${
             isVisible ? 'translate-y-0' : '-translate-y-10'
           }`}
         >
