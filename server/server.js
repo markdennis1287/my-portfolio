@@ -1,60 +1,55 @@
-import express from "express";
-import axios from "axios";
-import cors from "cors";
-import { XMLParser } from "fast-xml-parser";
+import express from 'express';
+import cors from 'cors';
+import Parser from 'rss-parser';
+import dotenv from 'dotenv';
+
+dotenv.config(); // Load environment variables
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+app.use(express.json());
 
-// Enable CORS
-app.use(
-  cors({
-    origin: " http://localhost:5173/", // Adjust origin to your frontend's URL if necessary
-    methods: "GET",
-  })
-);
+const parser = new Parser();
 
-// Default route
-app.get("/", (req, res) => {
-  res.send("Blog API is running! Use /api/blogs to fetch blogs.");
-});
-
-// Fetch blogs endpoint
-app.get("/api/blogs", async (req, res) => {
-  try {
-    const feedURL = "https://medium.com/feed/@dennismiringu"; // Replace with your Medium username
-    const response = await axios.get(`https://api.allorigins.win/get?url=${encodeURIComponent(feedURL)}`);
-
-    if (!response.data || !response.data.contents) {
-      throw new Error("RSS feed fetch failed.");
+// Dynamic CORS configuration to allow specific origins
+const corsOptions = {
+  origin: (origin, callback) => {
+    // List of allowed origins
+    const allowedOrigins = [
+      'https://effective-space-capybara-wrvp7q5qrxjp2x49-5173.app.github.dev', // Codespaces frontend
+      'http://localhost:5173', // Local development
+      'https://kim-collins-portfolio.vercel.app', // Production
+    ];
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
     }
+  },
+  methods: 'GET,POST,PUT,DELETE',
+  credentials: true,
+};
+app.use(cors(corsOptions));
 
-    const parser = new XMLParser();
-    const parsedFeed = parser.parse(response.data.contents);
-    const items = parsedFeed.rss.channel.item || [];
-
-    const blogs = items.map((item) => {
-      const description = item.description || "";
-      const thumbnailMatch = description.match(/<img[^>]+src="([^">]+)"/);
-      const thumbnail = thumbnailMatch ? thumbnailMatch[1] : "default-image.jpg";
-
-      return {
-        title: item.title || "Untitled",
-        link: item.link || "#",
-        pubDate: item.pubDate || new Date().toISOString(),
-        contentSnippet: description.replace(/<[^>]*>/g, "").substring(0, 150) + "...",
-        thumbnail,
-      };
-    });
-
-    res.json({ blogs });
+// Fetch and format Medium RSS feed
+app.get('/api/posts', async (req, res) => {
+  try {
+    const feed = await parser.parseURL('https://medium.com/feed/@dennismiringu');
+    const articles = feed.items.map((item) => ({
+      author: item.creator || 'Unknown',
+      title: item.title,
+      url: item.link,
+      date: item.pubDate,
+      content: item['content:encoded'] || '',
+      tags: item.categories || [],
+    }));
+    res.status(200).json(articles);
   } catch (error) {
-    console.error("Error fetching blogs:", error.message);
-    res.status(500).json({ error: "Failed to fetch blogs. Try again later." });
+    console.error('Error fetching feed:', error);
+    res.status(500).json({ error: 'Failed to fetch blog posts' });
   }
 });
 
-// Start server
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`);
+  console.log(`Backend running on https://effective-space-capybara-wrvp7q5qrxjp2x49-5000.app.github.dev`);
 });
