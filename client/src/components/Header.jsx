@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 function Header({ scrollToSection, sections }) {
-  const { aboutRef, projectsRef, contactRef } = sections;
+  const { homeRef, aboutRef, projectsRef, contactRef } = sections;
 
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -19,7 +19,12 @@ function Header({ scrollToSection, sections }) {
             className="w-12 h-12 rounded-full border-2 border-black"
           />
           <h1 className="text-2xl font-bold">
-            <button onClick={() => scrollToSection(homeRef)}>Dennis Miring'u</button>
+            <button
+              onClick={() => scrollToSection(homeRef)}
+              className="hover:text-[#4b9fee] transition-colors duration-300"
+            >
+              Dennis Miring'u
+            </button>
           </h1>
         </div>
 

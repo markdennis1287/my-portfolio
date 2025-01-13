@@ -9,55 +9,71 @@ import Contact from "./components/Contact";
 import BlogPage from "./pages/Blogs"; // Separate blogs page
 
 function App() {
+  // Section references for smooth scrolling
   const homeRef = useRef(null);
   const aboutRef = useRef(null);
   const projectsRef = useRef(null);
   const contactRef = useRef(null);
 
+  // Smooth scrolling handler
   const scrollToSection = (ref) => {
-    ref.current.scrollIntoView({ behavior: "smooth" });
+    if (ref?.current) {
+      ref.current.scrollIntoView({ behavior: "smooth" });
+    } else {
+      console.error("Invalid reference provided to scrollToSection");
+    }
   };
 
   return (
     <Router>
       <div className="flex flex-col min-h-screen">
-        <Header
-          scrollToSection={scrollToSection}
-          sections={{ homeRef, aboutRef, projectsRef, contactRef }}
-        />
-        <main className="flex-grow">
-          <Routes>
-            {/* Home Page */}
-            <Route
-              path="/"
-              element={
-                <div>
-                  <div ref={homeRef}>
-                    <Home />
+        <Routes>
+          {/* Routes with shared Header */}
+          <Route
+            path="/"
+            element={
+              <>
+                <Header
+                  scrollToSection={scrollToSection}
+                  sections={{ homeRef, aboutRef, projectsRef, contactRef }}
+                />
+                <main className="flex-grow">
+                  <div>
+                    <section ref={homeRef}>
+                      <Home />
+                    </section>
+                    <section ref={aboutRef}>
+                      <About />
+                    </section>
+                    <section ref={projectsRef}>
+                      <Projects />
+                    </section>
+                    <div className="text-center mt-8">
+                      <Link to="/blogs">
+                        <button className="w-60 py-3 bg-blue-950 text-white rounded hover:bg-blue-900 transition-transform duration-200 hover:scale-105">
+                        Blogs I have written ~
+                        </button>
+                      </Link>
+                    </div>
+                    <section ref={contactRef}>
+                      <Contact />
+                    </section>
                   </div>
-                  <div ref={aboutRef}>
-                    <About />
-                  </div>
-                  <div ref={projectsRef}>
-                    <Projects />
-                  </div>
-                  <div className="text-center mt-8">
-                    <Link to="/blogs">
-                      <button className="bg-blue-800 text-white px-4 py-2 rounded">
-                        View My Blogs
-                      </button>
-                    </Link>
-                  </div>
-                  <div ref={contactRef}>
-                    <Contact />
-                  </div>
-                </div>
-              }
-            />
-            {/* Blogs Page */}
-            <Route path="/blogs" element={<BlogPage />} />
-          </Routes>
-        </main>
+                </main>
+              </>
+            }
+          />
+          {/* Blogs Page (No shared Header) */}
+          <Route
+            path="/blogs"
+            element={
+              <main className="flex-grow">
+                <BlogPage />
+              </main>
+            }
+          />
+        </Routes>
+        {/* Footer shared across all pages */}
         <Footer />
       </div>
     </Router>

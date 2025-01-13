@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { Audio } from 'react-loader-spinner';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import { Audio } from "react-loader-spinner";
+import axios from "axios";
 
 const Blog = () => {
   const [posts, setPosts] = useState([]);
@@ -10,12 +10,12 @@ const Blog = () => {
     const fetchPosts = async () => {
       try {
         const response = await axios.get(
-          'https://effective-space-capybara-wrvp7q5qrxjp2x49-5000.app.github.dev/api/posts'
+          "https://effective-space-capybara-wrvp7q5qrxjp2x49-5000.app.github.dev/api/posts",
+          { withCredentials: true }
         );
-        console.log('API Response:', response.data); // Debugging
         setPosts(response.data);
       } catch (error) {
-        console.error('Error fetching posts:', error);
+        console.error("Error fetching posts:", error);
       } finally {
         setLoading(false);
       }
@@ -32,8 +32,6 @@ const Blog = () => {
           radius="9"
           color="white"
           ariaLabel="loading"
-          wrapperStyle={{}}
-          wrapperClass=""
         />
       </div>
     );
@@ -41,16 +39,16 @@ const Blog = () => {
 
   return (
     <div className="section">
-      <div className="container">
-        {/* Header Section */}
-        <div className="flex items-center justify-between mb-8">
-          <figure>
-            <img src="/assets/logo.svg" alt="Logo" />
-          </figure>
-          <h2 className="headline-2">Kim's Blog</h2>
-        </div>
+      {/* Custom Header Section */}
+      <div className="flex items-center justify-between p-4 border-b">
+        <figure className="w-20">
+          <img src="/logo.svg" alt="Logo" className="w-12 h-12 rounded-full" />
+        </figure>
+        <h2 className="text-3xl font-bold text-white x-9">My Blogs</h2>
+      </div>
 
-        {/* Posts Section */}
+      {/* Blog Posts */}
+      <div className="container py-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {posts.length === 0 ? (
             <p className="text-center text-zinc-500">
@@ -61,7 +59,7 @@ const Blog = () => {
               const thumbnailMatch = content.match(/<img[^>]+src="([^">]+)"/);
               const thumbnailUrl = thumbnailMatch
                 ? thumbnailMatch[1]
-                : '/assets/images/medium.jpg'; // Default image path
+                : "/assets/images/medium.jpg"; // Default image path
               const formattedDate = new Date(date).toLocaleDateString();
 
               return (
@@ -73,7 +71,7 @@ const Blog = () => {
                       alt="Thumbnail"
                       onError={(e) => {
                         e.target.onerror = null; // Prevent infinite loop
-                        e.target.src = '/assets/images/medium.jpg'; // Fallback image
+                        e.target.src = "/assets/images/medium.jpg"; // Fallback image
                       }}
                     />
                   </figure>
@@ -81,7 +79,7 @@ const Blog = () => {
                   <h3 className="title-1 mb-3">{title}</h3>
                   <p className="text-2xl text-zinc-400 mb-4">by {author}</p>
                   <p className="text-zinc-500 mb-8">
-                    Tags: {tags.length ? tags.join(', ') : 'No Tags'}
+                    Tags: {tags.length ? tags.join(", ") : "No Tags"}
                   </p>
                   <button className="btn btn-primary">
                     <a href={url} target="_blank" rel="noopener noreferrer">
