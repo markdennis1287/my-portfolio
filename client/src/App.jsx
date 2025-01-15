@@ -49,11 +49,15 @@ function App() {
                       <Projects />
                     </section>
                     <div className="text-center mt-8">
-                      <Link to="/blogs">
-                        <button className="w-60 py-3 bg-blue-950 text-white rounded hover:bg-blue-900 transition-transform duration-200 hover:scale-105">
+                    <a
+                      href="/blogs"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <button className="w-60 py-3 bg-blue-950 text-white rounded hover:bg-blue-900 transition-transform duration-200 hover:scale-105">
                         Blogs I have written ~
-                        </button>
-                      </Link>
+                      </button>
+                    </a>
                     </div>
                     <section ref={contactRef}>
                       <Contact />
