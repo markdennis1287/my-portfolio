@@ -3,6 +3,7 @@ import cors from 'cors';
 import Parser from 'rss-parser';
 import dotenv from 'dotenv';
 import path from 'path';
+import fs from 'fs';
 
 dotenv.config(); // Load environment variables
 
@@ -15,7 +16,7 @@ const parser = new Parser();
 const corsOptions = {
   origin: (origin, callback) => {
     const allowedOrigins = [
-      'https://effective-space-capybara-wrvp7q5qrxjp2x49-5173.app.github.dev',
+      'https://effective-space-capybara-wrvp2x49-5173.app.github.dev',
       'http://localhost:5173',
       'https://dennis-miringu.onrender.com',
     ];
@@ -49,15 +50,32 @@ app.get('/api/posts', async (req, res) => {
   }
 });
 
-// Serve React frontend files
+// Resolve __dirname
 const __dirname = path.resolve();
-app.use(express.static(path.join(__dirname, './client/dist')));
 
-// Serve React frontend for all other routes
+// Determine the frontend path dynamically
+const frontendPathCRA = path.join(__dirname, './client/build'); // CRA build folder
+const frontendPathVite = path.join(__dirname, './client/dist'); // Vite dist folder
+
+let frontendPath;
+if (fs.existsSync(frontendPathCRA)) {
+  frontendPath = frontendPathCRA;
+} else if (fs.existsSync(frontendPathVite)) {
+  frontendPath = frontendPathVite;
+} else {
+  console.error('Error: No build/dist folder found. Did you forget to build the frontend?');
+  process.exit(1); // Exit the process
+}
+
+// Serve React frontend files
+app.use(express.static(frontendPath));
+
+// Serve index.html for all other routes
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, './client/dist/index.html'));
+  res.sendFile(path.join(frontendPath, 'index.html'));
 });
 
+// Start the server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Backend running on port ${PORT}`);
