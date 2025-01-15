@@ -11,14 +11,13 @@ app.use(express.json());
 
 const parser = new Parser();
 
-// Dynamic CORS configuration to allow specific origins
+// Dynamic CORS configuration
 const corsOptions = {
   origin: (origin, callback) => {
-    // List of allowed origins
     const allowedOrigins = [
-      'https://effective-space-capybara-wrvp7q5qrxjp2x49-5173.app.github.dev', // Codespaces frontend
-      'http://localhost:5173', // Local development
-      'https://dennis-miringu.onrender.com', // Production
+      'https://effective-space-capybara-wrvp7q5qrxjp2x49-5173.app.github.dev',
+      'http://localhost:5173',
+      'https://dennis-miringu.onrender.com',
     ];
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
@@ -50,16 +49,16 @@ app.get('/api/posts', async (req, res) => {
   }
 });
 
-// Serve static files from the React frontend
+// Serve React frontend files
 const __dirname = path.resolve();
 app.use(express.static(path.join(__dirname, './client/dist')));
 
-// Catch-all handler to serve the index.html file for unknown routes
+// Serve React frontend for all other routes
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, './client/dist/index.html'));
 });
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`Backend running on ${PORT}`);
+  console.log(`Backend running on port ${PORT}`);
 });
