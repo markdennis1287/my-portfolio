@@ -10,7 +10,7 @@ const Blog = () => {
     const fetchPosts = async () => {
       try {
         const response = await axios.get(
-          "https://my-portfolio-b6sj.onrender.com/api/posts",
+          "https://my-portfolio-vsvt.onrender.com/api/posts",
           { withCredentials: true }
         );
         setPosts(response.data);
