@@ -6,7 +6,7 @@ import Home from "./components/Home";
 import About from "./components/About";
 import Projects from "./components/Projects";
 import Contact from "./components/Contact";
-import BlogPage from "./pages/Blogs"; // Separate blogs page
+import BlogPage from "./components/Blogs"; // Separate blogs page
 
 function App() {
   // Section references for smooth scrolling
