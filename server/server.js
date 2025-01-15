@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import Parser from 'rss-parser';
 import dotenv from 'dotenv';
+import path from 'path';
 
 dotenv.config(); // Load environment variables
 
@@ -47,6 +48,15 @@ app.get('/api/posts', async (req, res) => {
     console.error('Error fetching feed:', error);
     res.status(500).json({ error: 'Failed to fetch blog posts' });
   }
+});
+
+// Serve static files from the React frontend
+const __dirname = path.resolve();
+app.use(express.static(path.join(__dirname, './client/dist')));
+
+// Catch-all handler to serve the index.html file for unknown routes
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, './client/dist/index.html'));
 });
 
 const PORT = process.env.PORT || 5000;
