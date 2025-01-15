@@ -10,7 +10,7 @@ const Blog = () => {
     const fetchPosts = async () => {
       try {
         const response = await axios.get(
-          "https://effective-space-capybara-wrvp7q5qrxjp2x49-5000.app.github.dev/api/posts",
+          "https://my-portfolio-b6sj.onrender.com/api/posts",
           { withCredentials: true }
         );
         setPosts(response.data);
