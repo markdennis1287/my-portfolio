@@ -17,7 +17,7 @@ const corsOptions = {
     const allowedOrigins = [
       'https://effective-space-capybara-wrvp7q5qrxjp2x49-5173.app.github.dev', // Codespaces frontend
       'http://localhost:5173', // Local development
-      'https://kim-collins-portfolio.vercel.app', // Production
+      'https://dennis-miringu.onrender.com', // Production
     ];
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
