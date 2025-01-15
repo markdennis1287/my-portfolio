@@ -38,20 +38,29 @@ const Blog = () => {
   }
 
   return (
-    <div className="section">
+    <div className="section bg-[#160a1a] text-white">
       {/* Custom Header Section */}
-      <div className="flex items-center justify-between p-4 border-b">
+      <div className="container mx-auto px-4 py-6 flex items-center justify-between">
         <figure className="w-20">
           <img src="/logo.svg" alt="Logo" className="w-12 h-12 rounded-full" />
         </figure>
-        <h2 className="text-3xl font-bold text-white x-9">My Blogs</h2>
+        <h2 className="text-3xl font-bold">
+          <a
+            href="https://medium.com/@dennismiringu"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-[#4b9fee]"
+          >
+            My Blogs
+          </a>
+        </h2>
       </div>
 
       {/* Blog Posts */}
-      <div className="container py-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="container mx-auto px-4 py-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
           {posts.length === 0 ? (
-            <p className="text-center text-zinc-500">
+            <p className="text-center text-gray-500">
               No blog posts available. Please check back later.
             </p>
           ) : (
@@ -63,10 +72,13 @@ const Blog = () => {
               const formattedDate = new Date(date).toLocaleDateString();
 
               return (
-                <div key={index} className="blog-post">
-                  <figure className="img-box aspect-video rounded-lg">
+                <div
+                  key={index}
+                  className="blog-post bg-[#130936] rounded-lg p-6 flex flex-col justify-between"
+                >
+                  <figure className="aspect-video rounded-lg overflow-hidden">
                     <img
-                      className="img-cover"
+                      className="w-full h-full object-cover"
                       src={thumbnailUrl}
                       alt="Thumbnail"
                       onError={(e) => {
@@ -75,17 +87,24 @@ const Blog = () => {
                       }}
                     />
                   </figure>
-                  <p className="text-sm text-zinc-600 mt-4">{formattedDate}</p>
-                  <h3 className="title-1 mb-3">{title}</h3>
-                  <p className="text-2xl text-zinc-400 mb-4">by {author}</p>
-                  <p className="text-zinc-500 mb-8">
-                    Tags: {tags.length ? tags.join(", ") : "No Tags"}
-                  </p>
-                  <button className="btn btn-primary">
-                    <a href={url} target="_blank" rel="noopener noreferrer">
-                      Read More
-                    </a>
-                  </button>
+                  <div className="flex-1 flex flex-col justify-between mt-4">
+                    <p className="text-sm text-gray-400">{formattedDate}</p>
+                    <h3 className="text-2xl font-bold my-2">{title}</h3>
+                    <p className="text-lg text-gray-300">by {author}</p>
+                    <p className="text-sm text-gray-400 mt-4">
+                      Tags: {tags.length ? tags.join(", ") : "No Tags"}
+                    </p>
+                    <button className="btn btn-primary mt-4 self-start bg-blue-950 hover:bg-blue-900 text-white px-4 py-2 rounded-lg">
+                      <a
+                        href={url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-semibold"
+                      >
+                        Read More on Medium
+                      </a>
+                    </button>
+                  </div>
                 </div>
               );
             })
