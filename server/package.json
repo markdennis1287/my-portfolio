@@ -17,6 +17,7 @@
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "fast-xml-parser": "^4.5.1",
+    "node-cache": "^5.1.2",
     "node-fetch": "^3.3.2",
     "react-loader-spinner": "^6.1.6",
     "rss-parser": "^3.13.0",
@@ -24,6 +25,7 @@
   },
   "description": "",
   "files": [
-  "client/dist",
-  "server.js"]
+    "client/dist",
+    "server.js"
+  ]
 }
