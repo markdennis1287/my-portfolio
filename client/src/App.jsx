@@ -6,7 +6,7 @@ import Home from "./components/Home";
 import About from "./components/About";
 import Projects from "./components/Projects";
 import Contact from "./components/Contact";
-import BlogPage from "./components/Blogs"; // Separate blogs page
+import BlogPage from "./components/Blogs";
 
 function App() {
   // Section references for smooth scrolling
@@ -28,7 +28,7 @@ function App() {
     <Router>
       <div className="flex flex-col min-h-screen">
         <Routes>
-          {/* Routes with shared Header */}
+          {/* Main Page with Header */}
           <Route
             path="/"
             element={
@@ -49,15 +49,11 @@ function App() {
                       <Projects />
                     </section>
                     <div className="text-center mt-8">
-                    <a
-                      href="/blogs"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <button className="w-60 py-3 bg-blue-950 text-white rounded hover:bg-blue-900 transition-transform duration-200 hover:scale-105">
-                        Blogs I have written ~
-                      </button>
-                    </a>
+                      <Link to="/blogs">
+                        <button className="w-60 py-3 bg-blue-950 text-white rounded hover:bg-blue-900 transition-transform duration-200 hover:scale-105">
+                          Blogs I have written ~
+                        </button>
+                      </Link>
                     </div>
                     <section ref={contactRef}>
                       <Contact />
@@ -67,17 +63,9 @@ function App() {
               </>
             }
           />
-          {/* Blogs Page (No shared Header) */}
-          <Route
-            path="/blogs"
-            element={
-              <main className="flex-grow">
-                <BlogPage />
-              </main>
-            }
-          />
+          {/* Blogs Page */}
+          <Route path="/blogs" element={<BlogPage />} />
         </Routes>
-        {/* Footer shared across all pages */}
         <Footer />
       </div>
     </Router>

@@ -56,9 +56,13 @@ const frontendPath = path.join(__dirname, './client/dist');
 
 app.use(express.static(frontendPath));
 
-// Serve React index.html for all other routes
+// Serve React index.html for all non-API routes
 app.get('*', (req, res) => {
-  res.sendFile(path.join(frontendPath, 'index.html'));
+  if (!req.url.startsWith('/api')) {
+    res.sendFile(path.join(frontendPath, 'index.html'));
+  } else {
+    res.status(404).send('API route not found');
+  }
 });
 
 // Start the server
