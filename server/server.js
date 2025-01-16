@@ -3,6 +3,7 @@ import cors from 'cors';
 import Parser from 'rss-parser';
 import dotenv from 'dotenv';
 import path from 'path';
+import NodeCache from 'node-cache';
 
 dotenv.config(); // Load environment variables
 
@@ -10,6 +11,7 @@ const app = express();
 app.use(express.json());
 
 const parser = new Parser();
+const cache = new NodeCache({ stdTTL: 600 }); // Cache posts for 10 minutes
 
 // Dynamic CORS configuration
 const corsOptions = {
@@ -31,9 +33,14 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 
-// Fetch Medium RSS feed
+// Fetch Medium RSS feed with caching
 app.get('/api/posts', async (req, res) => {
   try {
+    const cachedPosts = cache.get('posts');
+    if (cachedPosts) {
+      return res.status(200).json(cachedPosts);
+    }
+
     const feed = await parser.parseURL('https://medium.com/feed/@dennismiringu');
     const articles = feed.items.map((item) => ({
       author: item.creator || 'Unknown',
@@ -43,6 +50,8 @@ app.get('/api/posts', async (req, res) => {
       content: item['content:encoded'] || '',
       tags: item.categories || [],
     }));
+
+    cache.set('posts', articles);
     res.status(200).json(articles);
   } catch (error) {
     console.error('Error fetching feed:', error);
@@ -56,7 +65,7 @@ const frontendPath = path.join(__dirname, './client/dist');
 
 app.use(express.static(frontendPath));
 
-// Serve React index.html for all non-API routes
+// Serve React index.html for non-API routes
 app.get('*', (req, res) => {
   if (!req.url.startsWith('/api')) {
     res.sendFile(path.join(frontendPath, 'index.html'));

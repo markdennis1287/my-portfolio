@@ -69,7 +69,7 @@ const Blog = () => {
               const thumbnailMatch = content.match(/<img[^>]+src="([^">]+)"/);
               const thumbnailUrl = thumbnailMatch
                 ? thumbnailMatch[1]
-                : "/assets/images/medium.jpg"; // Default image path
+                : "/assets/images/medium.jpg";
               const formattedDate = new Date(date).toLocaleDateString();
 
               return (
@@ -83,8 +83,8 @@ const Blog = () => {
                       src={thumbnailUrl}
                       alt="Thumbnail"
                       onError={(e) => {
-                        e.target.onerror = null; // Prevent infinite loop
-                        e.target.src = "/assets/images/medium.jpg"; // Fallback image
+                        e.target.onerror = null;
+                        e.target.src = "/assets/images/medium.jpg";
                       }}
                     />
                   </figure>
