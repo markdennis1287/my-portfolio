@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Audio } from "react-loader-spinner";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 const Blog = () => {
@@ -110,6 +111,15 @@ const Blog = () => {
             })
           )}
         </div>
+      </div>
+
+      {/* Back to Portfolio Button */}
+      <div className="container mx-auto px-4 py-6 text-center">
+        <Link to="/">
+          <button className="w-60 py-3 bg-blue-950 text-white rounded hover:bg-blue-900 transition-transform duration-200 hover:scale-105">
+            Back to Portfolio
+          </button>
+        </Link>
       </div>
     </div>
   );
