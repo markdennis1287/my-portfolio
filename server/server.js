@@ -16,6 +16,7 @@ const corsOptions = {
   origin: (origin, callback) => {
     const allowedOrigins = [
       'https://effective-space-capybara-wrvp7q5qrxjp2x49-5173.app.github.dev',
+      'https://my-portfolio-vsvt.onrender.com',
       'http://localhost:5173',
       'https://dennis-miringu.onrender.com',
     ];
