@@ -34,10 +34,6 @@ app.get('/api/posts', async (req, res) => {
   try {
     const feed = await parser.parseURL('https://medium.com/feed/@dennismiringu');
 
-
-    console.log('Feed structure:', feed);
-
-
     const articles = feed.items.map((item) => ({
       author: item.creator || item.author || 'Unknown',
       title: item.title || 'Untitled',
