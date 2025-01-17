@@ -11,7 +11,7 @@ const Blog = () => {
     const fetchPosts = async () => {
       try {
         const response = await axios.get(
-          "https://my-portfolio-vsvt.onrender.com/api/posts",
+          "${import.meta.env.VITE_API_BASE_URL}/api/posts",
           { withCredentials: true }
         );
         setPosts(response.data);
