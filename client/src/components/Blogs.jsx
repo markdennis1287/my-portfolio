@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Audio } from "react-loader-spinner";
-import { Link } from "react-router-dom";
 import axios from "axios";
 
 const Blog = () => {
@@ -11,6 +10,7 @@ const Blog = () => {
     const fetchPosts = async () => {
       try {
         const response = await axios.get(
+          "https://effective-space-capybara-wrvp7q5qrxjp2x49-5000.app.github.dev/api/posts",
           "${import.meta.env.VITE_API_BASE_URL}/api/posts",
           { withCredentials: true }
         );
@@ -50,7 +50,7 @@ const Blog = () => {
             href="https://medium.com/@dennismiringu"
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-[#4b9fee]"
+            className="hover:underline"
           >
             My Blogs
           </a>
@@ -59,7 +59,7 @@ const Blog = () => {
 
       {/* Blog Posts */}
       <div className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {posts.length === 0 ? (
             <p className="text-center text-gray-500">
               No blog posts available. Please check back later.
@@ -69,7 +69,7 @@ const Blog = () => {
               const thumbnailMatch = content.match(/<img[^>]+src="([^">]+)"/);
               const thumbnailUrl = thumbnailMatch
                 ? thumbnailMatch[1]
-                : "/assets/images/medium.jpg";
+                : "/assets/images/medium.jpg"; // Default image path
               const formattedDate = new Date(date).toLocaleDateString();
 
               return (
@@ -84,7 +84,7 @@ const Blog = () => {
                       alt="Thumbnail"
                       onError={(e) => {
                         e.target.onerror = null;
-                        e.target.src = "/assets/images/medium.jpg";
+                        e.target.src = "./medium.png";
                       }}
                     />
                   </figure>
@@ -95,7 +95,7 @@ const Blog = () => {
                     <p className="text-sm text-gray-400 mt-4">
                       Tags: {tags.length ? tags.join(", ") : "No Tags"}
                     </p>
-                    <button className="btn btn-primary mt-4 self-start bg-blue-950 hover:bg-blue-900 text-white px-4 py-2 rounded-lg">
+                    <button className="btn btn-primary mt-4 self-start bg-blue-800 hover:bg-blue-900 transition-transform duration-200 hover:scale-105 text-white px-4 py-2 rounded-lg">
                       <a
                         href={url}
                         target="_blank"
@@ -111,15 +111,6 @@ const Blog = () => {
             })
           )}
         </div>
-      </div>
-
-      {/* Back to Portfolio Button */}
-      <div className="container mx-auto px-4 py-6 text-center">
-        <Link to="/">
-          <button className="w-60 py-3 bg-blue-950 text-white rounded hover:bg-blue-900 transition-transform duration-200 hover:scale-105">
-            Back to Portfolio
-          </button>
-        </Link>
       </div>
     </div>
   );
