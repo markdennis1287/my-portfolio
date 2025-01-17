@@ -3,17 +3,16 @@ import cors from 'cors';
 import Parser from 'rss-parser';
 import dotenv from 'dotenv';
 import path from 'path';
-import NodeCache from 'node-cache';
 
-dotenv.config(); // Load environment variables
+
+dotenv.config();
 
 const app = express();
 app.use(express.json());
 
 const parser = new Parser();
-const cache = new NodeCache({ stdTTL: 600 }); // Cache posts for 10 minutes
 
-// Dynamic CORS configuration
+
 const corsOptions = {
   origin: (origin, callback) => {
     const allowedOrigins = [
@@ -33,7 +32,7 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 
-// Fetch Medium RSS feed with caching
+
 app.get('/api/posts', async (req, res) => {
   try {
     const cachedPosts = cache.get('posts');
@@ -59,13 +58,13 @@ app.get('/api/posts', async (req, res) => {
   }
 });
 
-// Serve React frontend files
+
 const __dirname = path.resolve();
 const frontendPath = path.join(__dirname, './client/dist');
 
 app.use(express.static(frontendPath));
 
-// Serve React index.html for non-API routes
+
 app.get('*', (req, res) => {
   if (!req.url.startsWith('/api')) {
     res.sendFile(path.join(frontendPath, 'index.html'));
@@ -74,7 +73,7 @@ app.get('*', (req, res) => {
   }
 });
 
-// Start the server
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Backend running on port ${PORT}`);

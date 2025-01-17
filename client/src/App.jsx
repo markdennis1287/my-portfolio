@@ -9,13 +9,12 @@ import Contact from "./components/Contact";
 import BlogPage from "./components/Blogs";
 
 function App() {
-  // Section references for smooth scrolling
   const homeRef = useRef(null);
   const aboutRef = useRef(null);
   const projectsRef = useRef(null);
   const contactRef = useRef(null);
 
-  // Smooth scrolling handler
+  
   const scrollToSection = (ref) => {
     if (ref?.current) {
       ref.current.scrollIntoView({ behavior: "smooth" });
