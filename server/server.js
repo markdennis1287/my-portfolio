@@ -52,5 +52,5 @@ app.get('/api/posts', async (req, res) => {
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`Backend running on https://effective-space-capybara-wrvp7q5qrxjp2x49-5000.app.github.dev`);
+  console.log(`Backend running on ${PORT}`);
 });
