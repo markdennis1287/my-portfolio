@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Audio } from "react-loader-spinner";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 const Blog = () => {
@@ -11,7 +12,6 @@ const Blog = () => {
       try {
         const response = await axios.get(
           "https://effective-space-capybara-wrvp7q5qrxjp2x49-5000.app.github.dev/api/posts",
-          "${import.meta.env.VITE_API_BASE_URL}/api/posts",
           { withCredentials: true }
         );
         setPosts(response.data);
@@ -50,7 +50,7 @@ const Blog = () => {
             href="https://medium.com/@dennismiringu"
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:underline"
+            className="hover:text-[#4b9fee]"
           >
             My Blogs
           </a>
@@ -69,7 +69,7 @@ const Blog = () => {
               const thumbnailMatch = content.match(/<img[^>]+src="([^">]+)"/);
               const thumbnailUrl = thumbnailMatch
                 ? thumbnailMatch[1]
-                : "/assets/images/medium.jpg"; // Default image path
+                : "/assets/images/medium.jpg";
               const formattedDate = new Date(date).toLocaleDateString();
 
               return (
@@ -111,6 +111,15 @@ const Blog = () => {
             })
           )}
         </div>
+      </div>
+
+      {/* Back to Portfolio Button */}
+      <div className="container mx-auto px-4 py-6 text-center">
+        <Link to="/">
+          <button className="btn btn-primary bg-blue-800 hover:bg-blue-900 transition-transform duration-200 hover:scale-105 text-white px-6 py-3 rounded-lg">
+            Back to Portfolio
+          </button>
+        </Link>
       </div>
     </div>
   );
