@@ -16,7 +16,7 @@ const corsOptions = {
     const allowedOrigins = [
       'https://effective-space-capybara-wrvp7q5qrxjp2x49-5173.app.github.dev',
       'http://localhost:5173',
-      'https://kim-collins-portfolio.vercel.app',
+      'https://my-portfolio-peach-nu-27.vercel.app',
     ];
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
